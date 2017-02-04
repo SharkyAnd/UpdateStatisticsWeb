@@ -1,0 +1,57 @@
+﻿@model UpdateStatisticsCore.Models.ClientInfoViewModel
+@using PagedList.Mvc
+    <div id="updatesList" data-get-log="@Url.Action("GetLogJson", "ClientInfo")">
+        <div class="row">
+            <div class="headTry col-md-2 col-sm-2 col-lg-2 col-xs-2">
+                <div class="defaultHeader">Дата начала: </div>
+                <div id="content">
+                    <div class="text">Время скачивания</div>
+                    <div class="text">Скорость</div>
+                    <div class="text">Размер пополнения</div>
+                    <div class="text">Время пополнения</div>
+                    <div class="text">Дата окончания</div>
+                    <div class="text">Код возврата клиента</div>
+                    <div class="text">Код возврата сервера</div>
+                </div>
+            </div>
+            @{
+                for (int i = 0; i < Model.ClientUpdates.Count; i++)
+                {
+                    var upd = Model.ClientUpdates[i];
+                    <div class="try col-md-2 col-sm-2 col-lg-2 col-xs-2" data-info-target="@Url.Action("GetLog","Client")" id="@(i)-header" data-start-date="@(upd.StartDate)" data-server-name="@(upd.ServerName)">
+                        <div style="background-color:@upd.StatusColor" class="header">
+                            @{
+                                if (!upd.StartDate.HasValue)
+                                {
+                                    <b>Нет информации</b>
+                                }
+
+                                else
+                                {
+                                    <b>@upd.StartDate</b>
+                                }
+
+                            }
+                        </div>
+                        <div id="@(i)-content">
+                            <div class="text">@upd.DownloadTime</div>
+                            <div class="text">@upd.DownloadSpeed</div>
+                            <div class="text">@upd.UpdateSize</div>
+                            <div class="text">@upd.UpdateTime</div>
+                            <div class="text">@(upd.EndDate.HasValue? upd.EndDate.ToString(): "-")</div>
+                            <div class="text code" data-type="client" data-info-target="@Url.Action("GetCodeDescription","Client")">@(upd.ClientCode.HasValue?upd.ClientCode.ToString():"-")</div>
+                            <div class="text code" data-type="server" data-info-target="@Url.Action("GetCodeDescription","Client")">@(upd.ServerCode.HasValue?upd.ServerCode.ToString():"-")</div>
+                        </div>
+                    </div>
+                                }
+            }
+        </div>
+        <div class="row pagedList" data-otf-target="#updatesList">
+            @Html.PagedListPager(Model.ClientUpdates, page => Url.Action("ClientInfo", 
+                new { distributiveId = Model.ClientInfo.DistributiveId, serverName = Model.ClientInfo.ServerName, distributiveNumber = Model.ClientInfo.DistributiveNumber, pageNumber = page }),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+<script type="text/html" id="popover_content_template">
+    <div id="clientCodePopover"></div>
+</script>

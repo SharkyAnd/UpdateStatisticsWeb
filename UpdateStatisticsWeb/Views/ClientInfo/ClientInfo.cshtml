@@ -1,0 +1,39 @@
+﻿@model UpdateStatisticsCore.Models.ClientInfoViewModel
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/client-info/client-info.css" rel="stylesheet" />
+@{
+    ViewBag.Title = Model.ClientInfo.ClientName;
+}
+
+<script src="~/Scripts/form_constructor.js"></script>
+<script src="~/Scripts/client-info/client-info.js"></script>
+<script src="~/Scripts/client-info/usr-file.js"></script>
+
+<div style="display:none" id="helpers" data-initialize-client="@Url.Action("ClientInfo", "ClientInfo")" data-get-clients="@Url.Action("GetCurrentClientsList", "ClientInfo")"
+     data-distributive-id="@(Model.ClientInfo.DistributiveId)" data-server-name="@(Model.ClientInfo.ServerName)" data-distributive-number="@(Model.ClientInfo.DistributiveNumber)" data-eng-name="@(Model.ClientInfo.EngineerName)" data-get-client-code-description="@(Url.Action("GetClientCodeDescription", "ClientInfo"))"></div>
+<div class="sipheader">
+    <div class="left arrow"></div>
+    <div class="right arrow"></div>
+    <div class="container" style="text-align:center;font-weight:bold;font-size:30px;">@Model.ClientInfo.ClientName</div>
+    <div class="container" style="text-align:center;font-weight:bold;font-size:25px;">@Model.ClientInfo.ClientComment</div>
+</div>
+
+<div class="container-fluid">
+    <div class="links" style="margin-top:30px;">@Html.ActionLink("На страницу с клиентами", "ClientsView", "ClientUpdates")</div>
+    @Html.Partial("_Updates", Model)
+
+    <div class="links row">
+        @Html.ActionLink("Просмотреть USR файл", "OpenUsr", new {serverName = Model.ClientInfo.ServerName, distributiveNumber = Model.ClientInfo.DistributiveNumber, distributiveId = Model.ClientInfo.DistributiveId })<br />
+        @Html.ActionLink("Скачать USR файл", "DownloadUsr", new { serverName = Model.ClientInfo.ServerName, distributiveNumber = Model.ClientInfo.DistributiveNumber, distributiveId = Model.ClientInfo.DistributiveId })<br />
+        @Html.ActionLink("Скачать архив", "DownloadArchive", new { serverName = Model.ClientInfo.ServerName, distributiveId = Model.ClientInfo.DistributiveId })<br />
+    </div>
+</div>
+
+<div class="log-section row">
+    <div class="log col-md-6 col-sm-6 col-lg-6 col-xs-6"></div>
+    <div class="qst col-md-6 col-lg-6 col-xs-6 col-lg-6"></div>
+</div>
+
+<div id="usrHead" style="font-size:18px;text-align:center"></div>
+<div id="usrSystems" data-get-source="@Url.Action("GetUsrFileJson", "ClientInfo")"></div>
+

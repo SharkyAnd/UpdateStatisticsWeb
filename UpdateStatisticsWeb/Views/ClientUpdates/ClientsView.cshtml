@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Статистика интернет пополнений";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/client-updates/time-update.js"></script>
+<script src="~/Scripts/form_constructor.js"></script>
+<div class="dx-datagrid-text-content" style="font-weight:bold;font-size:20px">Обновляются в данный момент:</div>
+<div id="updating-now" data-get-source="@Url.Action("GetNowUpdating", "ClientUpdates")" style="margin-bottom:70px;height:350px"></div>
+<div id="helpers" data-localization-path="@String.Format("{0}://{1}{2}",Request.Url.Scheme, Request.Url.Authority,Url.Content("~/"))"></div>
+<div class="row">
+    <div class="col-md-3">
+        <div id="clientsCount" style="font-weight:bold;font-size:18px"></div>
+    </div>
+    <div class="col-md-2">
+        <div id="clear-sort-button"></div>
+    </div>
+    <div class="col-md-2">
+        <div id="yellow-red-checkbox"></div>
+    </div>
+    <div class="col-md-2">
+        <div id="only-on-clients-checkbox"></div>
+    </div>
+    <div class="col-md-3">
+        <div id="only-new-clients-checkbox"></div>
+    </div>
+</div>
+<div id="clients-grid-container" data-get-source="@Url.Action("GetClientUpdates", "ClientUpdates")" data-get-tooltip="@Url.Action("GetTooltipDataJson", "ClientUpdates")" 
+     data-view-client-info="@Url.Action("ClientInfo", "ClientInfo")" data-update-comment="@Url.Action("UpdateDistributiveComment", "ClientUpdates")"
+     data-update-clients-list ="@Url.Action("UpdateClientsList", "ClientUpdates")" data-get-system-code="@Url.Action("GetSystemCodeDescriptionJson", "ClientUpdates")" style="border:1px solid #FFFFFF;height:auto">
+
+</div>
+<div id="LoadPanel"></div>
+<script type="text/html" id="popover_content_template">
+    <div id="distributivePopover"></div>
+</script>
+<script src="~/Scripts/loader.js"></script>
+<script src="~/Scripts/client-updates/client-updates.js"></script>
+<script src="~/Scripts/localization.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+    $(function () {
+        $.connection.hub.start();
+        var updateMainGridHub = $.connection.updateMainGridHub;
+        updateMainGridHub.client.update = function () {
+            getGridData();
+        };
+        var getNowUpdatingHub = $.connection.getNowUpdatingHub;
+        getNowUpdatingHub.client.update = function () {
+            getUpdatingNow();
+        };
+    });
+</script>

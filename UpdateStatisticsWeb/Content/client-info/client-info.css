@@ -1,0 +1,136 @@
+﻿.log-section {
+    margin: 0 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    display: none;
+    width:100%;
+}
+
+    .log-section div {
+        display: table-cell;
+        height: 450px;
+        overflow-y: scroll;
+    }
+
+.edit {
+    color: #95d0f7;
+    cursor: pointer;
+}
+
+#updatesList {
+    margin: 0 10px;
+    color: #3F3F3F;
+    font-family: Gautami;
+    font-size: 14px;
+}
+
+#slider {
+    color: #3F3F3F;
+    font-family: Harrington;
+    font-size: 14px;
+}
+
+.headTry {
+    padding-right: 0px;
+}
+
+.defaultHeader {
+    border: 1px solid #cecece;
+    padding: 8px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.try {
+    padding-left: 0px;
+    padding-right: 0px;
+    cursor: pointer;
+    margin-top:5px;
+}
+
+    .try:hover {
+        -webkit-box-shadow: -1px -1px 24px 4px rgba(168,166,166,1);
+        -moz-box-shadow: -1px -1px 24px 4px rgba(168,166,166,1);
+        box-shadow: -1px -1px 24px 4px rgba(168,166,166,1);
+    }
+
+.header {
+    border: 1px solid #cecece;
+    padding: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .header:hover {
+        color: #B7B7B7;
+    }
+
+.text {
+    border: 1px solid #cecece;
+    border-top: none;
+    padding: 15px;
+    text-align: left;
+    background: #e4dddd;
+}
+
+.pagedList {
+    margin: 0 10px;
+}
+
+.links {
+    margin: 20px 10px;
+}
+
+.usrHead {
+    text-align: center;
+}
+
+#usrFile {
+    margin: 10px 10px 0 10px;
+}
+
+.qstRecord {
+    text-align: center;
+    padding: 5px;
+    display: inline-block;
+    margin: 1px 1px;
+}
+
+.need_to_time_update {
+    width:250px;
+}
+
+.headdiv {
+    text-align: left;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    /*height: 30px;
+    border: 2px solid black;
+    text-align: center;*/
+}
+
+.arrow {
+    position: absolute;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    /*z-index: 1;*/
+    height: 100px;
+    width: 100px;
+    display: none;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.left {
+    background-image: url(images/arrow-left.png);
+    background-position-y: -10px;
+    background-position-x: -10px;
+    background-repeat: no-repeat;
+}
+
+.right {
+    background-image: url(images/arrow-right.png);
+    background-repeat: no-repeat;
+    background-position-y: -10px;
+    background-position-x: -10px;
+    left: 95%;
+}
